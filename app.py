@@ -116,16 +116,15 @@ def delete_reminder():
         flash(f"No reminders found for chat ID {chat_id}.", "danger")
     return redirect(url_for('home'))
 """
-@app.route('/view_reminders/<chat_id>', methods=['GET', 'POST'])
-def view_reminders(chat_id):
-    if request.method == 'POST':
-        reminder_id = request.form['reminder_id']
-        reminders_collection.delete_one({"_id": pymongo.ObjectId(reminder_id)})
-        flash("Reminder deleted successfully.", "success")
-        return redirect(url_for('view_reminders', chat_id=chat_id))
-    
-    reminders = get_user_reminders(chat_id)
-    return render_template('view_reminders.html', reminders=reminders, chat_id=chat_id)
+@app.route('/delete', methods=['POST'])
+def delete_reminder():
+    chat_id = request.form['chat_id']
+    if reminders_collection.delete_many({"chat_id": chat_id}).deleted_count > 0:
+        flash(f"Reminders for chat ID {chat_id} have been deleted successfully.", "success")
+    else:
+        flash(f"No reminders found for chat ID {chat_id}.", "danger")
+    return redirect(url_for('view_reminders', chat_id=chat_id))
+
 
 
 
