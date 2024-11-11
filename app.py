@@ -107,7 +107,7 @@ def admin_download():
                 f.write(f"{reminder['chat_id']} - {reminder['name']} - {reminder['specialty']} - {reminder['date']}\n")
         return send_file('reminders.txt', as_attachment=True)
     return "Unauthorized"
-"""
+
 @app.route('/delete', methods=['POST'])
 def delete_reminder():
     chat_id = request.form['chat_id']
@@ -116,7 +116,7 @@ def delete_reminder():
     else:
         flash(f"No reminders found for chat ID {chat_id}.", "danger")
     return redirect(url_for('home'))
-"""
+
 @app.route('/delete', methods=['POST'])
 def delete_reminder():
     chat_id = request.form['chat_id']
@@ -125,17 +125,6 @@ def delete_reminder():
 @app.route('/reminders/<int:chat_id>', methods=['GET'])
 def view_reminders(chat_id):
     return render_template('view_reminders.html', chat_id=chat_id, reminders=reminders_data)
-
-@app.route('/reminders/<int:chat_id>/delete', methods=['POST'])
-def delete_reminder(chat_id):
-    global reminders_data
-    reminder_id = request.json.get('reminder_id')
-    reminders_data = [r for r in reminders_data if r['_id'] != reminder_id]
-    return jsonify({'success': True})
-
-@app.route('/')
-def home():
-    return "Welcome to the Home Page"
 
 # Telegram bot command handler for /admin
 @bot.message_handler(commands=['admin'])
