@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Set up reminders for your Telegram bot, get notified on the specified date with a custom specialty reminder.">
+    <meta name="author" content="Your Name">
+    <meta name="keywords" content="Telegram, Reminder, Specialty, Bot, Notification, MM/DD">
+    <title>Telegram Reminder Setup</title>
+
+    <!-- Link to your logo -->
+    <link rel="icon" href="{{ url_for('static', filename='logo.png') }}" type="image/png">
+
+    <style>
+        /* Background and general styling */
+        body {
+            font-family: Arial, sans-serif;
+            background: url('{{ url_for('static', filename='background.jpg') }}') no-repeat center center fixed;
+            background-size: cover;
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+        }
+
+        h1 {
+            color: #1e90ff;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        input, button {
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        button {
+            background-color: #1e90ff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #4682b4;
+        }
+
+        .alert {
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            color: #fff;
+        }
+        
+        .alert-success {
+            background-color: #28a745;
+        }
+        
+        .alert-danger {
+            background-color: #dc3545;
+        }
+
+        p {
+            font-size: 18px;
+            color: #333;
+        }
+
+        .disclaimer {
+            font-size: 14px;
+            color: #ff6347;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+
+        .reminder-note {
+            font-size: 16px;
+            color: #555;
+            margin-top: 20px;
+            font-style: italic;
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .footer {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Telegram Reminder Logo" style="width: 100px; margin-bottom: 20px; border-radius: 50%;">
+        <h1>Telegram Reminder Setup</h1>
+        <p>🎉 Set up your reminder for the day! 🎉</p>
+
+        <!-- Add the note here -->
+        <div class="reminder-note">
+            "Something is important to remember a loved one's birthday than yours."
+        </div>
+
+        <!-- Display flash messages for success or failure -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <form action="/submit" method="POST">
+            <input type="text" name="chat_id" placeholder="Enter your Telegram Chat ID" required>
+            <input type="text" name="name" placeholder="Enter your name" required>
+            <input type="text" name="specialty" placeholder="Enter today's specialty" required>
+            <input type="text" name="date" placeholder="Enter the date (MM/DD)" pattern="^(0[1-9]|1[0-2])\/([0-2][0-9]|3[01])$" title="Date format: MM/DD (e.g., 11/12)" required>
+            <button type="submit">Set Reminder</button>
+        </form>
+        <p>💡 You will receive reminders on the specified date! 💡</p>
+
+        <div class="disclaimer">
+            ⚠️ <strong>Important:</strong> Before setting up your reminder, please make sure you have started the bot on Telegram. If you haven't, please search for the bot and click "Start" to activate it. Otherwise, the reminder will not be sent. 🚨
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            Made by DOT-007
+        </div>
+    </div>
+
+</body>
+</html>
