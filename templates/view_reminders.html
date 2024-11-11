@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Reminders</title>
+</head>
+<body>
+    <h1>Reminders for Chat ID: {{ chat_id }}</h1>
+    
+    {% if reminders %}
+        <ul>
+            {% for reminder in reminders %}
+                <li>
+                    Name: {{ reminder.name }} <br>
+                    Specialty: {{ reminder.specialty }} <br>
+                    Date: {{ reminder.date }}
+                    <form action="{{ url_for('view_reminders', chat_id=chat_id) }}" method="post">
+                        <input type="hidden" name="reminder_id" value="{{ reminder._id }}">
+                        <button type="submit">Delete Reminder</button>
+                    </form>
+                </li>
+                <hr>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No reminders found for this chat ID.</p>
+    {% endif %}
+    
+    <a href="{{ url_for('home') }}">Back to Home</a>
+</body>
+</html>

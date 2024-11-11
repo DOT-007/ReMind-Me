@@ -139,6 +139,14 @@
         <div class="disclaimer">
             ⚠️ <strong>Important:</strong> Before setting up your reminder, please make sure you have started the bot on Telegram. If you haven't, please search for the bot and click "Start" to activate it. Otherwise, the reminder will not be sent. 🚨
         </div>
+<!-- index.html -->
+
+<h2>Delete Reminder by Chat ID</h2>
+<form action="{{ url_for('delete_reminder') }}" method="POST">
+    <label for="chat_id">Chat ID:</label>
+    <input type="text" name="chat_id" required>
+    <button type="submit">Delete Reminder</button>
+</form>
 
         <!-- Footer -->
         <div class="footer">
