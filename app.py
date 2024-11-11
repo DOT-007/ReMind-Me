@@ -115,16 +115,10 @@ def delete_reminder():
     else:
         flash(f"No reminders found for chat ID {chat_id}.", "danger")
     return redirect(url_for('home'))
-
+"""
 @app.route('/delete', methods=['POST'])
 def delete_reminder():
     chat_id = request.form['chat_id']
-    return redirect(url_for('view_reminders', chat_id=chat_id))
-"""
-
-@app.route('/delete', methods=['GET'])
-def get_reminders():
-    chat_id = request.args.get('chat_id')
     return redirect(url_for('view_reminders', chat_id=chat_id))
 
 
