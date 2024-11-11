@@ -96,7 +96,6 @@ def view_reminders(chat_id):
     
     reminders = get_user_reminders(chat_id)
     return render_template('view_reminders.html', reminders=reminders, chat_id=chat_id)
-
 # Admin route to download the .txt file (only admin can access this)
 @app.route('/admin/download')
 def admin_download():
@@ -107,7 +106,7 @@ def admin_download():
                 f.write(f"{reminder['chat_id']} - {reminder['name']} - {reminder['specialty']} - {reminder['date']}\n")
         return send_file('reminders.txt', as_attachment=True)
     return "Unauthorized"
-    
+""""    
 @app.route('/delete', methods=['POST'])
 def delete_reminder():
     chat_id = request.form['chat_id']
@@ -116,6 +115,19 @@ def delete_reminder():
     else:
         flash(f"No reminders found for chat ID {chat_id}.", "danger")
     return redirect(url_for('home'))
+"""
+@app.route('/view_reminders/<chat_id>', methods=['GET', 'POST'])
+def view_reminders(chat_id):
+    if request.method == 'POST':
+        reminder_id = request.form['reminder_id']
+        reminders_collection.delete_one({"_id": pymongo.ObjectId(reminder_id)})
+        flash("Reminder deleted successfully.", "success")
+        return redirect(url_for('view_reminders', chat_id=chat_id))
+    
+    reminders = get_user_reminders(chat_id)
+    return render_template('view_reminders.html', reminders=reminders, chat_id=chat_id)
+
+
 
 # Telegram bot command handler for /admin
 @bot.message_handler(commands=['admin'])
