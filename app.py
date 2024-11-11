@@ -106,7 +106,7 @@ def admin_download():
                 f.write(f"{reminder['chat_id']} - {reminder['name']} - {reminder['specialty']} - {reminder['date']}\n")
         return send_file('reminders.txt', as_attachment=True)
     return "Unauthorized"
-"""  
+
 @app.route('/delete', methods=['POST'])
 def delete_reminder():
     chat_id = request.form['chat_id']
@@ -120,7 +120,7 @@ def delete_reminder():
 def delete_reminder():
     chat_id = request.form['chat_id']
     return redirect(url_for('view_reminders', chat_id=chat_id))
-
+"""
 
 # Telegram bot command handler for /admin
 @bot.message_handler(commands=['admin'])
