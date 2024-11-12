@@ -145,6 +145,13 @@ def send_welcome(message):
     
 
 #Added cmd
+@bot.message_handler(commands=['add'])
+def send_chat_id(message):
+    chat_id = message.chat.id
+    web_url = os.getenv('WEB_URL')
+    # Reply to the user with their chat_id and reminder URL
+    bot.reply_to(message, f"Here is your chat_id: {chat_id}. Go to the web to create a reminder, make sure to use your chat_id: {chat_id} at {web_url}")
+
 @bot.message_handler(commands=['id', 'chatid'])
 def send_user_id(message):
     chat_id = message.chat.id
