@@ -136,6 +136,23 @@ def send_welcome(message):
                      f"{os.getenv('WEB_URL')}\n\n"
                      "Once you've updated your reminder, the bot will notify you on the specified date. 💡\n\n"
                      "Please make sure to click the 'Start' button in Telegram to activate the bot! ⚠️")
+    
+
+#Added cmd
+@bot.message_handler(commands=['id', 'chatid'])
+def send_user_id(message):
+    chat_id = message.chat.id
+    bot.reply_to(message, f"Your chat ID is: {chat_id}")
+
+@bot.message_handler(commands=['del', 'delete'])
+def delete_reminder(message):
+    chat_id = message.chat.id
+    web_url = os.getenv('WEB_URL')
+    if web_url:
+        bot.reply_to(message, f"Go to the web to delete: {web_url}/view_reminder/{chat_id}")
+    else:
+        bot.reply_to(message, "WEB_URL environment variable is not set.")
+
 
 # Function to run the bot
 def start_bot():
