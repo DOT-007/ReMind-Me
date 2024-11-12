@@ -111,8 +111,7 @@ def admin_download():
 @app.route('/delete', methods=['POST'])
 def delete_reminder():
     chat_id = request.form['chat_id']
-    return redirect(url_for('view_reminders', chat_id=chat_id))
-
+    return redirect(f"/view_reminders/{chat_id}")
 # Telegram bot command handler for /admin
 @bot.message_handler(commands=['admin'])
 def admin_info(message):
