@@ -86,15 +86,21 @@ def submit_reminder():
     return redirect(url_for('home'))
 
 # Route to view all reminders for a specific chat ID and delete individually
+
 @app.route('/view_reminders/<chat_id>', methods=['GET', 'POST'])
 def view_reminders(chat_id):
     if request.method == 'POST':
-        reminder_id = request.form['reminder_id']
-        reminders_collection.delete_one({"_id": pymongo.ObjectId(reminder_id)})
-        flash("Reminder deleted successfully.", "success")
+        reminder_id = request.form.get('reminder_id')
+        try:
+            reminders_collection.delete_one({"_id": ObjectId(reminder_id)})
+            flash("Reminder deleted successfully.", "success")
+        except (pymongo.errors.InvalidId, TypeError):
+            flash("Invalid reminder ID.", "error")
+        
         return redirect(url_for('view_reminders', chat_id=chat_id))
     
-    reminders = get_user_reminders(chat_id)
+    # Assuming you want to display the reminders in a GET request
+    reminders = reminders_collection.find({"chat_id": chat_id})
     return render_template('view_reminders.html', reminders=reminders, chat_id=chat_id)
 
 # Admin route to download the .txt file (only admin can access this)
