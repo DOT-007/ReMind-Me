@@ -85,12 +85,6 @@ def submit_reminder():
         flash("Failed to save reminder. Please try again.", "danger")
     return redirect(url_for('home'))
 
-
-# shortcut url
-@app.route('/<chat_id>')
-def form(chat_id):
-    # Render the `index.html` template with the chat_id prefilled
-    return render_template('index.html', chat_id=chat_id)
 # Route to view all reminders for a specific chat ID and delete individually
 
 @app.route('/view_reminders/<chat_id>', methods=['GET', 'POST'])
