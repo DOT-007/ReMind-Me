@@ -149,7 +149,7 @@ def delete_reminder(message):
     chat_id = message.chat.id
     web_url = os.getenv('WEB_URL')
     if web_url:
-        bot.reply_to(message, f"Go to the web to delete: {web_url}/view_reminder/{chat_id}")
+        bot.reply_to(message, f"Go to the web to delete: {web_url}/view_reminders/{chat_id}")
     else:
         bot.reply_to(message, "WEB_URL environment variable is not set.")
 
