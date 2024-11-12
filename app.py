@@ -141,6 +141,9 @@ def send_welcome(message):
                      "To get started, you need to set up your reminder. Please visit the following link to update your reminder details: 🌐\n"
                      f"{os.getenv('WEB_URL')}\n\n"
                      "Once you've updated your reminder, the bot will notify you on the specified date. 💡\n\n"
+                     "/add for add your reminder"
+                     "/id get your chat id"
+                     "/del or delete  for delete your Reminder"
                      "Please make sure to click the 'Start' button in Telegram to activate the bot! ⚠️")
     
 
