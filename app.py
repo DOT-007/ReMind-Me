@@ -159,9 +159,9 @@ def send_welcome(message):
                      "To get started, you need to set up your reminder. Please visit the following link to update your reminder details: 🌐\n"
                      f"{os.getenv('WEB_URL')}\n\n"
                      "Once you've updated your reminder, the bot will notify you on the specified date. 💡\n\n"
-                     "/add for add your reminder"
-                     "/id get your chat id"
-                     "/del or delete  for delete your Reminder"
+                     "/add for add your reminder \n"
+                     "/id get your chat id \n"
+                     "/del or delete  for delete your Reminder \n"
                      "Please make sure to click the 'Start' button in Telegram to activate the bot! ⚠️")
     
 
@@ -171,7 +171,7 @@ def send_chat_id(message):
     chat_id = message.chat.id
     web_url = os.getenv('WEB_URL')
     # Reply to the user with their chat_id and reminder URL
-    bot.reply_to(message, f"Here is your chat_id: {chat_id}. Go to the web to create a reminder, make sure to use your chat_id: {chat_id} at {web_url}")
+    bot.reply_to(message, f"Here is your chat_id: {chat_id}. \n Go to the web to create a reminder, make sure to use your chat_id: {chat_id} at \n {web_url}")
 
 @bot.message_handler(commands=['id', 'chatid'])
 def send_user_id(message):
