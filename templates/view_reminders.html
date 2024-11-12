@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Reminders</title>
+</head>
+<body>
+    <h1>Reminders</h1>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+          {% for category, message in messages %}
+            <li class="{{ category }}">{{ message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <ul>
+      {% for reminder in reminders %}
+        <li>
+          <p>{{ reminder.message }}</p>
+          {% if reminder.website %}
+            <p><a href="{{ reminder.website }}" target="_blank">{{ reminder.website }}</a></p>
+          {% endif %}
+          <form action="{{ url_for('view_reminders', chat_id=chat_id) }}" method="post" style="display:inline;">
+            <input type="hidden" name="reminder_id" value="{{ reminder._id }}">
+            <button type="submit">Delete</button>
+          </form>
+        </li>
+      {% endfor %}
+    </ul>
+
+</body>
+</html>
